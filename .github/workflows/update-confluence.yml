@@ -25,4 +25,4 @@ jobs:
         env:
           EMAIL: ${{ secrets.EMAIL }}
           API_TOKEN: ${{ secrets.API_TOKEN }}
-        run: python automation/update_confluence.py
+        run: python update_confluence.py
