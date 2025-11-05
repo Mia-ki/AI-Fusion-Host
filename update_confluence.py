@@ -13,7 +13,7 @@ API_TOKEN = os.environ["CONFLUENCE_API_TOKEN"]
 today_title = "AI Fusion – " + datetime.now().strftime("%B %-d, %Y")
 
 # Step 2: Search for the page
-search_url = f"{CONFLUENCE_BASE_URL}/rest/api/content?title={today_title}&spaceKey=<your-space-key>&expand=version"
+search_url = f"{CONFLUENCE_BASE_URL}/rest/api/content?title={today_title}&spaceKey=<1301512405>&expand=version"
 search_response = requests.get(search_url, auth=HTTPBasicAuth(EMAIL, API_TOKEN)).json()
 
 if not search_response["results"]:
