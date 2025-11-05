@@ -1,14 +1,14 @@
-name: Update Confluence Page
+
+name: Update Confluence Weekly
 
 on:
   schedule:
-    - cron: '30 0 * * MON'  # Every Monday at 08:30 HKT
+    - cron: '30 0 * * 1'  # Every Monday at 8:30 HKT
   workflow_dispatch:
 
 jobs:
-  update-confluence:
+  update:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
@@ -22,7 +22,7 @@ jobs:
         run: pip install requests
 
       - name: Run update script
-        run: python update_confluence.py
         env:
-          CONFLUENCE_EMAIL: ${{ secrets.CONFLUENCE_EMAIL }}
-          CONFLUENCE_API_TOKEN: ${{ secrets.CONFLUENCE_API_TOKEN }}
+          EMAIL: ${{ secrets.EMAIL }}
+          API_TOKEN: ${{ secrets.API_TOKEN }}
+        run: python automation/update_confluence.py
