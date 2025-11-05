@@ -1,0 +1,45 @@
+import requests
+from requests.auth import HTTPBasicAuth
+import os
+
+# Config
+GITHUB_HTML_URL = "https://raw.githubusercontent.com/mia-ki/AI-Fusion-Host/main/latest.html"
+CONFLUENCE_BASE_URL = "https://~629438789bc7150068cc65ba.atlassian.net/wiki"
+PAGE_ID = "1301512405"
+EMAIL = os.environ["CONFLUENCE_EMAIL"]
+API_TOKEN = os.environ["CONFLUENCE_API_TOKEN"]
+
+# Step 1: Fetch HTML from GitHub
+html_response = requests.get(GITHUB_HTML_URL)
+html_content = html_response.text
+
+# Step 2: Get current page version
+get_url = f"{CONFLUENCE_BASE_URL}/rest/api/content/{PAGE_ID}?expand=body.storage,version"
+get_response = requests.get(get_url, auth=HTTPBasicAuth(EMAIL, API_TOKEN)).json()
+current_version = get_response["version"]["number"]
+page_title = get_response["title"]
+
+# Step 3: Update Confluence page
+update_payload = {
+    "id": PAGE_ID,
+    "type": "page",
+    "title": page_title,
+    "body": {
+        "storage": {
+            "value": html_content,
+            "representation": "storage"
+        }
+    },
+    "version": {
+        "number": current_version + 1
+    }
+}
+
+update_url = f"{CONFLUENCE_BASE_URL}/rest/api/content/{PAGE_ID}"
+update_response = requests.put(update_url, json=update_payload, auth=HTTPBasicAuth(EMAIL, API_TOKEN))
+
+if update_response.status_code == 200:
+    print("✅ Confluence page updated successfully.")
+else:
+    print(f"❌ Failed to update page: {update_response.status_code}")
+    print(update_response.text)
