@@ -6,14 +6,15 @@ from datetime import datetime
 # Config
 GITHUB_HTML_URL = "https://mia-ki.github.io/AI-Fusion-Host/latest.html"
 CONFLUENCE_BASE_URL = "https://~629438789bc7150068cc65ba.atlassian.net/wiki"
+SPACE_KEY = "1318912048"
 EMAIL = os.environ["CONFLUENCE_EMAIL"]
 API_TOKEN = os.environ["CONFLUENCE_API_TOKEN"]
 
-# Step 1: Get today's title
+# Step 1: Build today's title
 today_title = "AI Fusion – " + datetime.now().strftime("%B %-d, %Y")
 
 # Step 2: Search for the page
-search_url = f"{CONFLUENCE_BASE_URL}/rest/api/content?title={today_title}&spaceKey=<1301512405>&expand=version"
+search_url = f"{CONFLUENCE_BASE_URL}/rest/api/content?title={today_title}&spaceKey={SPACE_KEY}&expand=version"
 search_response = requests.get(search_url, auth=HTTPBasicAuth(EMAIL, API_TOKEN)).json()
 
 if not search_response["results"]:
@@ -28,14 +29,23 @@ current_version = page["version"]["number"]
 html_response = requests.get(GITHUB_HTML_URL)
 html_content = html_response.text
 
-# Step 4: Update the page
+# Step 4: Wrap in HTML macro
+html_wrapped = f"""
+<ac:structured-macro ac:name="html">
+  <ac:plain-text-body><![CDATA[
+    {html_content}
+  ]]></ac:plain-text-body>
+</ac:structured-macro>
+"""
+
+# Step 5: Update the page
 update_payload = {
     "id": page_id,
     "type": "page",
     "title": today_title,
     "body": {
         "storage": {
-            "value": html_content,
+            "value": html_wrapped,
             "representation": "storage"
         }
     },
