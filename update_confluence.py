@@ -34,12 +34,11 @@ page_data = {
     "space": {"key": SPACE_KEY},
     "ancestors": [{"id": PARENT_PAGE_ID}],
     "body": {
-        "storage": {
-            "value": escaped_html,
-            "representation": "storage"
-        }
-    }
-}
+     "storage": {
+         "value": escaped_html,
+         "representation": "storage"
+     }
+ }
 
 # === Create the page in Confluence ===
 try:
