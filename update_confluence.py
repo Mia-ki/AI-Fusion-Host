@@ -24,7 +24,7 @@ except requests.RequestException as e:
     exit(1)
 
 # === Escape HTML for Confluence storage format ===
-escaped_html = html.escape(html_content)
+escaped_html = html_content
 
 # === Prepare Confluence page data ===
 page_title = f"AI Digest – Week of {datetime.now().strftime('%b %d, %Y')}"
