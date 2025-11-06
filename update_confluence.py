@@ -33,7 +33,7 @@ page_data = {
     "title": page_title,
     "space": {"key": SPACE_KEY},
     "ancestors": [{"id": PARENT_PAGE_ID}],
-    "body": {
+    "body":
      "storage": {
          "value": escaped_html,
          "representation": "storage"
