@@ -28,16 +28,17 @@ escaped_html = html_content
 
 # === Prepare Confluence page data ===
 page_title = f"AI Digest – Week of {datetime.now().strftime('%b %d, %Y')}"
-page_data =
+page_data = {
     "type": "page",
     "title": page_title,
     "space": {"key": SPACE_KEY},
     "ancestors": [{"id": PARENT_PAGE_ID}],
-    "body":
-     "storage": {
-         "value": escaped_html,
-         "representation": "storage"
-     }
+    "body": {
+        "storage": {
+            "value": html_content,  # ✅ Use raw HTML, not escaped
+            "representation": "storage"
+        }
+    }
 
 # === Create the page in Confluence ===
 try:
