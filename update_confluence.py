@@ -38,7 +38,6 @@ page_data = {
          "value": escaped_html,
          "representation": "storage"
      }
- }
 
 # === Create the page in Confluence ===
 try:
