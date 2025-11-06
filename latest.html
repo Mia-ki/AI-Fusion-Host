@@ -1,62 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Weekly AI Digest – Week of {{WEEK_DATE}}</title>
+  <meta charset="UTF-8">
+  <title>Weekly AI Digest</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      line-height: 1.6;
-      margin: 2rem;
+      margin: 2em;
       background-color: #f9f9f9;
+    }
+    h1 {
       color: #333;
     }
-    h1, h2 {
-      color: #2c3e50;
+    .digest-section {
+      margin-bottom: 2em;
     }
-    section {
-      margin-bottom: 2rem;
+    .digest-section h2 {
+      color: #0052cc;
     }
-    .item {
-      margin-bottom: 1rem;
+    .digest-section p {
+      margin: 0.5em 0;
     }
-    a {
-      color: #2980b9;
-      text-decoration: none;
-    }
-    a:hover {
-      text-decoration: underline;
-    }
-    .tag {
-      font-weight: bold;
-      color: #555;
+    .source {
+      font-size: 0.9em;
+      color: #666;
     }
   </style>
 </head>
 <body>
+  <div id="digest">
+    <h1>🧠 Weekly AI Digest – <span id="digest-date">[DATE]</span></h1>
 
-  <h1>🧠 Weekly AI Digest – Week of {{WEEK_DATE}}</h1>
+    <!-- Example Section -->
+    <div class="digest-section">
+      <h2>1. [Title]</h2>
+      <p><strong>Category:</strong> [Category]</p>
+      <p>[Summary]</p>
+      <p class="source"><strong>Source:</strong> [URL][URL]</a></p>
+      <p><strong>Value Score:</strong> [Score]</p>
+    </div>
 
-  <section>
-    <h2>🔍 Research Highlights</h2>
-    {{RESEARCH_BLOCK}}
-  </section>
-
-  <section>
-    <h2>🏭 Industry Updates</h2>
-    {{INDUSTRY_BLOCK}}
-  </section>
-
-  <section>
-    <h2>📊 Metrics & Trends</h2>
-    {{METRICS_BLOCK}}
-  </section>
-
-  <section>
-    <h2>🧰 AI Product Management Corner</h2>
-    {{PM_BLOCK}}
-  </section>
-
+    <!-- More sections will be added dynamically each week -->
+  </div>
 </body>
 </html>
