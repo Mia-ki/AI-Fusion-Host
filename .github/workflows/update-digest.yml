@@ -80,10 +80,11 @@ def main():
         template = Template(f.read())
 
     output = template.render(
-        WEEK_DATE=week_date,
-        RESEARCH_BLOCK=build_html_block(papers, is_research=True),
-        INDUSTRY_BLOCK=build_html_block(industry),
-        METRICS_BLOCK=metrics_block + pm_corner  # Combine metrics + PM corner
+    WEEK_DATE=week_date,
+    RESEARCH_BLOCK=build_html_block(papers, is_research=True),
+    INDUSTRY_BLOCK=build_html_block(industry),
+    METRICS_BLOCK=metrics_block,
+    PM_BLOCK=pm_corner
     )
 
     with open(OUTPUT_PATH, "w", encoding="utf-8") as f:
