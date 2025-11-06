@@ -1,30 +1,16 @@
+import os
 import requests
 from datetime import datetime
-import os
-import html
 
-# === Configuration ===
-CONFLUENCE_URL = "https://prudential-ps.atlassian.net/wiki"
+# === Load secrets from environment ===
+EMAIL = os.getenv("EMAIL")
+API_TOKEN = os.getenv("API_TOKEN")
 SPACE_KEY = "~629438789bc7150068cc65ba"  # Replace with your actual space key
-EMAIL = os.environ["EMAIL"]
-API_TOKEN = os.environ["API_TOKEN"]
-GITHUB_HTML_URL = "https://raw.githubusercontent.com/Mia-ki/AI-Fusion-Host/main/latest.html"
 PARENT_PAGE_ID = "1301512405"  # Replace with your actual parent page ID
 
-# === Authentication ===
-auth = (EMAIL, API_TOKEN)
-
-# === Fetch HTML from GitHub ===
-try:
-    response = requests.get(GITHUB_HTML_URL)
-    response.raise_for_status()
-    html_content = response.text
-except requests.RequestException as e:
-    print(f"❌ Failed to fetch HTML from GitHub: {e}")
-    exit(1)
-
-# === Escape HTML for Confluence storage format ===
-escaped_html = html_content
+# === Read HTML content from file ===
+with open("latest.html", "r", encoding="utf-8") as file:
+    html_content = file.read()
 
 # === Prepare Confluence page data ===
 page_title = f"AI Digest – Week of {datetime.now().strftime('%b %d, %Y')}"
@@ -35,19 +21,26 @@ page_data = {
     "ancestors": [{"id": PARENT_PAGE_ID}],
     "body": {
         "storage": {
-            "value": html_content,  # ✅ Use raw HTML, not escaped
+            "value": html_content,
             "representation": "storage"
         }
     }
+}
 
-# === Create the page in Confluence ===
-try:
-    post_url = f"{CONFLUENCE_URL}/rest/api/content"
-    headers = {"Content-Type": "application/json"}
-    post_response = requests.post(post_url, json=page_data, auth=auth, headers=headers)
-    post_response.raise_for_status()
-    print(f"✅ Successfully created Confluence page: {page_title}")
-except requests.RequestException as e:
-    print(f"❌ Failed to create Confluence page: {e}")
-    print("Response:", post_response.text)
-    exit(1)
+# === Send request to Confluence API ===
+url = "https://prudential-ps.atlassian.net/wiki/rest/api/content"
+auth = (EMAIL, API_TOKEN)
+headers = {
+    "Content-Type": "application/json"
+}
+
+response = requests.post(url, json=page_data, auth=auth, headers=headers)
+
+# === Handle response ===
+if response.status_code == 200 or response.status_code == 201:
+    print("✅ Confluence page created successfully.")
+    print("🔗 Page URL:", response.json().get("_links", {}).get("webui"))
+else:
+    print("❌ Failed to create page.")
+    print("Status Code:", response.status_code)
+    print("Response:", response.text)
