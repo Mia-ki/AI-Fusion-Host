@@ -28,7 +28,7 @@ escaped_html = html_content
 
 # === Prepare Confluence page data ===
 page_title = f"AI Digest – Week of {datetime.now().strftime('%b %d, %Y')}"
-page_data = {
+page_data =
     "type": "page",
     "title": page_title,
     "space": {"key": SPACE_KEY},
