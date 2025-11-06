@@ -20,6 +20,7 @@ page_data = {
     "type": "page",
     "title": f"AI Digest – Week of {datetime.now().strftime('%b %d, %Y')}",
     "space": {"key": SPACE_KEY},
+    "ancestors": [{"id": 1301512405}],
     "body": {
         "storage": {
             "value": html_content,
