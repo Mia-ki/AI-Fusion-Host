@@ -21,8 +21,8 @@ jobs:
         run: pip install requests
 
       - name: Download latest digest from hosted source
-        run: curl -o latest.html https://ai-digest-public.s3.ap-east-1.amazonaws.com/current.html
-
+        run: curl -o latest.html https://ai-digest-host.s3.ap-east-1.amazonaws.com/latest.html
+        
       - name: Run update script
         env:
           EMAIL: ${{ secrets.EMAIL }}
