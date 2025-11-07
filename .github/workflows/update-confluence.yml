@@ -21,7 +21,7 @@ jobs:
         run: pip install requests
 
       - name: Download latest digest from hosted source
-        run: curl -o latest.html https://ai-digest-host.net/digests/latest.html
+        run: curl -o latest.html https://ai-digest-public.s3.ap-east-1.amazonaws.com/current.html
 
       - name: Run update script
         env:
