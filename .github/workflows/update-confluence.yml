@@ -21,8 +21,10 @@ jobs:
       - name: Install dependencies
         run: pip install requests
 
+      - name: Download latest digest from GitHub Pages
+        run: curl -o latest.html https://mia-ki.github.io/AI-Fusion-Host/latest.html
+
       - name: Run update script
         env:
           EMAIL: ${{ secrets.EMAIL }}
           API_TOKEN: ${{ secrets.API_TOKEN }}
-        run: python update_confluence.py
