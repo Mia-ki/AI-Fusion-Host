@@ -8,6 +8,7 @@ on:
 jobs:
   update:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
@@ -20,9 +21,6 @@ jobs:
       - name: Install dependencies
         run: pip install requests
 
-      - name: Download latest digest from hosted source
-        run: curl -o latest.html https://ai-digest.pages.dev/latest.html
-        
       - name: Run update script
         env:
           EMAIL: ${{ secrets.EMAIL }}
