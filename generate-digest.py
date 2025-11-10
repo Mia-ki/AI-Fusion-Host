@@ -1,0 +1,44 @@
+from datetime import datetime
+
+digest_html = f"""
+<div id="digest">
+  <h1>🧠 Weekly AI Digest – {datetime.now().strftime('%b %d, %Y')}</h1>
+
+  <div class="digest-section">
+    <h2>1. OpenAI Introduces GPT-5 Turbo</h2>
+    <p><strong>Category:</strong> Major Model Release</p>
+    <p>OpenAI has launched GPT-5 Turbo, optimized for lower latency and cost, with improved memory and multimodal capabilities. It powers ChatGPT and is available via API.</p>
+    <p class="source"><strong>Source:</strong> https://openai.com/blog/november-2025-update</p>
+    <p><strong>Value Score:</strong> 9.5</p>
+  </div>
+
+  <div class="digest-section">
+    <h2>2. Google DeepMind Releases Gemini 1 Preview</h2>
+    <p><strong>Category:</strong> Research & Model Development</p>
+    <p>Gemini 1 is DeepMind’s next-gen multimodal model, designed to compete with GPT-5. Early benchmarks show strong performance in reasoning and image understanding.</p>
+    <p class="source"><strong>Source:</strong> https://deepmind.google/updates/gemini-preview</p>
+    <p><strong>Value Score:</strong> 9.2</p>
+  </div>
+
+  <div class="digest-section">
+    <h2>3. AI in Insurance: Prudential’s Claims Automation Pilot</h2>
+    <p><strong>Category:</strong> Industry Case Study</p>
+    <p>Prudential has launched a pilot using NLP and document AI to automate claims triage. Early results show a 35% reduction in manual review time.</p>
+    <p class="source"><strong>Source:</strong> Internal case study (confidential)</p>
+    <p><strong>Value Score:</strong> 8.8</p>
+  </div>
+
+  <div class="digest-section">
+    <h2>4. Product Management Trend: AI-Driven Roadmapping Tools</h2>
+    <p><strong>Category:</strong> PM Tools & Trends</p>
+    <p>Tools like ProductBoard and airfocus are integrating AI to suggest roadmap priorities based on customer feedback and usage data.</p>
+    <p class="source"><strong>Source:</strong> https://www.productboard.com/blog/ai-roadmaps</p>
+    <p><strong>Value Score:</strong> 8.5</p>
+  </div>
+</div>
+"""
+
+with open("latest.html", "w", encoding="utf-8") as f:
+    f.write(digest_html)
+
+print("✅ latest.html generated.")
